@@ -14,7 +14,9 @@ saveResults = input(f"Do you want to save your results to a separate file? [{For
 if saveResults.lower() not in ['y', 'n']:
     print("Error: please pick Either yes or no.")
     exit()
-
+if saveResults.lower() == 'y':
+    with open("output.txt","w") as o:
+        o.flush() # Clear output file just in case
 # YouTube
 print("Searching YouTube...")
 youtubeURL = f"https://www.youtube.com/@{uname}"
@@ -52,7 +54,6 @@ if youtubeResults:
     print(f"User \"{uname}\" found at {youtubeURL}")
     if saveResults.lower() == "y":
         with open("output.txt","a") as o:
-            o.flush() # Clear output.txt
             o.write(f"{youtubeURL}\n")
 else:
     print("No results were found at YouTube.")
@@ -81,7 +82,7 @@ if links:
     print("Relevant search results:")
     if saveResults.lower() == "y":
         with open("output.txt","a") as o:
-            o.write("Relevant Search Results:\n")
+            o.write("Relevant Search Results:\n\n")
     for x in links:
         print(x)
         if saveResults.lower() == "y":
