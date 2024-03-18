@@ -33,7 +33,7 @@ redditURL = f"https://www.reddit.com/user/{uname}"
 redditResults = BeautifulSoup(requests.get(redditURL).content, "html.parser").find("main")
 
 # Linktree
-print("Searching Linktree")
+print("Searching Linktree...")
 linktreeURL = f"https://www.linktr.ee/{uname}"
 linktreeResults = BeautifulSoup(requests.get(linktreeURL).content, "html.parser").find(id="TopBar")
 
