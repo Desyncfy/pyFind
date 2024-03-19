@@ -5,6 +5,7 @@ from requests_html import HTMLSession
 
 # Starting info
 session = HTMLSession()
+print(f"Welcome to {Fore.BLUE}py{Fore.GREEN}Find{Style.RESET_ALL}!")
 uname = input("What is your username? (Required) ")
 scrapeNet = input(f"Do you want to search the internet as well and grab relevant results? (Beta) [{Fore.GREEN}Y{Style.RESET_ALL}/{Fore.RED}N{Style.RESET_ALL}] ")
 if scrapeNet.lower() not in ['y', 'n']:
