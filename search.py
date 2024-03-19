@@ -50,6 +50,13 @@ twitterPage = session.get(twitterURL) # Store as variable so the page can be loa
 twitterPage.html.render() # Render the page
 twitterResults = BeautifulSoup(twitterPage.html.html, "html.parser").find("div", class_="css-175oi2r r-xoduu5 r-1kihuf0 r-sdzlij r-1p0dtai r-hdaws3 r-s8bhmr r-u8s1d r-13qz1uu")
 
+# Instagram
+print("Searching Instagram...")
+instagramURL = f"https://www.instagram.com/{uname}"
+instagramPage = session.get(instagramURL) # Store as variable so the page can be loaded before getting parsed.
+instagramPage.html.render() # Render the page
+instagramResults = BeautifulSoup(instagramPage.html.html, "html.parser").find("title") # Read the title of the page
+
 # DuckDuckGo
 if scrapeNet.lower() == "y":
     print("Searching internet...")
@@ -105,8 +112,13 @@ if twitterResults:
             o.write(f"{twitterURL}\n")
 else:
     print("No results were found at Twitter.")
-
-
+if uname.lower() in instagramResults.text.lower():
+    print(f"User \"{uname}\" found at {instagramURL}")
+    if saveResults.lower() == "y":
+        with open("output.txt","a") as o:
+            o.write(f"{instagramURL}\n")
+else:
+    print("No results were found at Instagram.")
 
 
 if scrapeNet.lower() == 'y':
