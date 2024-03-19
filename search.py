@@ -37,6 +37,18 @@ print("Searching Linktree...")
 linktreeURL = f"https://www.linktr.ee/{uname}"
 linktreeResults = BeautifulSoup(requests.get(linktreeURL).content, "html.parser").find(id="TopBar")
 
+# Bento
+print("Searching Bento...")
+bentoURL = f"https://www.bento.me/{uname}"
+bentoResults = BeautifulSoup(requests.get(bentoURL).content, "html.parser").find("main")
+
+# Twitter
+print("Searching Twitter...")
+twitterURL = f"https://www.twitter.com/{uname}"
+twitterPage = session.get(twitterURL) # Store as variable so the page can be loaded before getting parsed.
+twitterPage.html.render() # Render the page
+twitterResults = BeautifulSoup(twitterPage.html.html, "html.parser").find("div", class_="css-175oi2r r-xoduu5 r-1kihuf0 r-sdzlij r-1p0dtai r-hdaws3 r-s8bhmr r-u8s1d r-13qz1uu")
+
 # DuckDuckGo
 if scrapeNet.lower() == "y":
     print("Searching internet...")
@@ -78,17 +90,36 @@ if linktreeResults:
             o.write(f"{linktreeURL}\n")
 else:
     print("No results were found at Linktree.")
-if links:
-    print("Relevant search results:")
+if bentoResults:
+    print(f"User \"{uname}\" found at {bentoURL}")
     if saveResults.lower() == "y":
         with open("output.txt","a") as o:
-            o.write("Relevant Search Results:\n\n")
-    for x in links:
-        print(x)
+            o.write(f"{bentoURL}\n")
+else:
+    print("No results were found at Bento.")
+if twitterResults:
+    print(f"User \"{uname}\" found at {twitterURL}")
+    if saveResults.lower() == "y":
+        with open("output.txt","a") as o:
+            o.write(f"{twitterURL}\n")
+else:
+    print("No results were found at Twitter.")
+
+
+
+
+if scrapeNet.lower() == 'y':
+    if links:
+        print("Relevant search results:")
         if saveResults.lower() == "y":
             with open("output.txt","a") as o:
-                o.write(f"{x}\n")
-elif scrapeNet.lower() == "y":
-    print("Sorry, no relevant results were found.")
-if saveResults.lower() == "y":
-        print(f"Results saved to {Fore.GREEN}output.txt")
+                o.write("Relevant Search Results:\n\n")
+        for x in links:
+            print(x)
+            if saveResults.lower() == "y":
+                with open("output.txt","a") as o:
+                    o.write(f"{x}\n")
+    elif scrapeNet.lower() == "y":
+        print("Sorry, no relevant results were found.")
+    if saveResults.lower() == "y":
+            print(f"Results saved to {Fore.GREEN}output.txt")
