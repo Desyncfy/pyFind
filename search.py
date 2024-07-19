@@ -62,7 +62,7 @@ if scrapeNet.lower() == "y":
     print("Searching internet...")
     links = []
     
-    searchURL = f"https://lite.duckduckgo.com/lite/?q={uname}"
+    searchURL = f"https://lite.duckduckgo.com/lite/?q=\"{uname}\""
     searches = BeautifulSoup(session.get(searchURL).content, "html.parser").find_all("a")
     for i in searches:
         link = i.get("href")
